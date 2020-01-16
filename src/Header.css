@@ -1,0 +1,7 @@
+.invert {
+    -webkit-filter: invert(100%);
+}
+
+.navbar {
+    background-color: #0C62FB
+}

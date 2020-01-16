@@ -1,0 +1,8 @@
+.form-group.with-icon {
+    position: relative;
+}
+
+.validityIndicator {
+    position: absolute;
+    right: 8px;
+}
