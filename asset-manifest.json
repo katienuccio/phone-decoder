@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/katienuccio/phone-decoder/static/js/main.8b73d3e3.chunk.js",
+    "main.js.map": "/katienuccio/phone-decoder/static/js/main.8b73d3e3.chunk.js.map",
+    "runtime-main.js": "/katienuccio/phone-decoder/static/js/runtime-main.3b245140.js",
+    "runtime-main.js.map": "/katienuccio/phone-decoder/static/js/runtime-main.3b245140.js.map",
+    "static/js/2.9214291a.chunk.js": "/katienuccio/phone-decoder/static/js/2.9214291a.chunk.js",
+    "static/js/2.9214291a.chunk.js.map": "/katienuccio/phone-decoder/static/js/2.9214291a.chunk.js.map",
+    "index.html": "/katienuccio/phone-decoder/index.html",
+    "precache-manifest.4c8d73c8af0ae6362f2c77204196dfee.js": "/katienuccio/phone-decoder/precache-manifest.4c8d73c8af0ae6362f2c77204196dfee.js",
+    "service-worker.js": "/katienuccio/phone-decoder/service-worker.js",
+    "static/js/2.9214291a.chunk.js.LICENSE": "/katienuccio/phone-decoder/static/js/2.9214291a.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3b245140.js",
+    "static/js/2.9214291a.chunk.js",
+    "static/js/main.8b73d3e3.chunk.js"
+  ]
+}
