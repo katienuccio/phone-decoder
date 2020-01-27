@@ -25,7 +25,7 @@ class Form extends React.Component {
 
     onChange = (e) => {
         this.setState({
-            valid: !isNaN(e.target.value) && !e.target.value.includes('1'),
+            valid: !isNaN(e.target.value) && !e.target.value.includes('1') && e.target.value.length === 10,
             hasValue: Object.keys(e.target.value).length > 0
         });
         this.setState({[e.target.name]: e.target.value});
@@ -53,8 +53,9 @@ class Form extends React.Component {
                         <IsValid valid={this.state.valid} hasValue={this.state.hasValue}/>
                     </div>
                 </div>
-                <button className='btn btn-primary' type='submit' onClick={(e) => this.onSubmit(e)}
-                        disabled={!this.state.valid}>Submit
+                {/*disabled={!this.state.valid}*/}
+                <button className='btn btn-primary' type='submit' onClick={(e) => this.onSubmit(e)}>
+                    Submit
                 </button>
             </form>
         )

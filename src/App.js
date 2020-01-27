@@ -2,85 +2,99 @@ import React from 'react';
 import './App.css';
 import Header from './Header';
 import Form from './Form';
+import Result from './Results';
+// import Dict from './TenLetters';
+import keyImage from './keyImage.png';
 
-function Result(props) {
-    const result = props.result;
-    if (Object.keys(result).length) {
-        return <div className='mt-5'>You entered: {result.number}</div>;
-    } else {
-        return <div/>;
-    }
-}
-
-function Loader(props) {
-    if (props.isLoading) {
-        return <div>Loading...</div>;
-    }
-    return <div/>;
-}
-
-const dictionary = {
-    2: 'abc',
-    3: 'def',
-    4: 'ghi',
-    5: 'jkl',
-    6: 'mno',
-    7: 'prs',
-    8: 'tuv',
-    9: 'wxy',
-    0: 'z'
-};
-
-function printWordsUtil(numbers, curr, output, n, words) {
-    if (curr === n) {
-        return output;
-    }
-
-    // Try all 3 possible characters for current digits in number[] and recur for remaining digits
-    for (let i = 0; i < dictionary[numbers[curr]].length; i++) {
-        output += dictionary[numbers[curr]].charAt(i);
-        let temp = printWordsUtil(numbers, curr + 1, output, n, words);
-        if (typeof temp === 'string' || temp instanceof String) {
-            words.push(temp);
-        }
-        output = output.substring(0,output.length - 1);
-    }
-    return words;
-}
+// function generateWordsUtil(numbers, curr, output, n, words) {
+//     const key = {
+//         2: 'ABC',
+//         3: 'DEF',
+//         4: 'GHI',
+//         5: 'JKL',
+//         6: 'MNO',
+//         7: 'PRS',
+//         8: 'TUV',
+//         9: 'WXY',
+//         0: 'Z'
+//     };
+//
+//     if (curr === n) {
+//         return output;
+//     }
+//
+//     // Try all possible characters for current digits in numbers[] and recur for remaining digits
+//     for (let i = 0; i < key[numbers[curr]].length; i++) {
+//         output += key[numbers[curr]].charAt(i);
+//         let temp = generateWordsUtil(numbers, curr + 1, output, n, words);
+//         if (typeof temp === 'string' || temp instanceof String) {
+//             if (Dict().indexOf(temp.toLowerCase()) !== -1) {
+//                 words.push(temp);
+//             }
+//         }
+//         output = output.substring(0, output.length - 1);
+//     }
+//     return words;
+// }
 
 class App extends React.Component {
-    state = {
-        input: {},
-        valid: false,
-        hasValue: false,
-        words: [],
-        isLoadingWords: false,
-        isCheckingWords: false
+    constructor() {
+        super();
+        this.state = {
+            input: {},
+            word: '',
+            loading: false
+        };
+    }
+
+    handleChange = (event) => {
+        this.setState({input: event.target.value});
     };
 
-    onChange = (input) => {
-        this.setState({valid: !isNaN(input), hasValue: Object.keys(input).length});
-    };
-
-    onSubmit = (x) => {
-        this.setState({input: x, hasValue: x.hasValue, isLoadingWords: true});
-        console.log(this.state);
-        let input = x.number.split('');
-        const n = input.length;
-        this.setState({words: printWordsUtil(input, 0, [], n, []), isLoadingWords: false});
-        console.log(this.state);
+    onSubmit = async (x) => {
+        this.setState({input: x, hasValue: x.hasValue, word: [], loading: true});
+        // const body = {
+        //     number: x.number
+        // };
+        // const request = new Request('https://k8abwkw1kc.execute-api.us-east-2.amazonaws.com/default/generateWords', {
+        //     method: 'POST',
+        //     mode: 'no-cors',
+        //     body: JSON.stringify(body)
+        // });
+        const request = new Request('https://swapi.co/api/people/1');
+        fetch(request)
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    loading: false,
+                    word: data.name
+                })
+            });
+        // console.log(response);
+        // this.setState({word: response.json(), loading: false});
+        // return await response;
     };
 
     render() {
         return (
             <div>
                 <Header/>
-                <div className='container'>
-                    <Form onSubmit={input => this.onSubmit(input)} onChange={input => this.onChange(input)}/>
-                    <i>NOTE: 1 is not a valid number</i>
-                    <Loader isLoading={this.state.isLoadingWords}/>
-                    <Result result={this.state.input}/>
-                    <ul>{this.state.words.map(el => <li key={el}> {el} </li>)}</ul>
+                <div className='m-5'>
+                    <div className='row mx-1 mb-2'>
+                        <h5>Directions</h5>
+                        <h6>Input a ten digit phone number to discover what, if any, words can be created with the key
+                            below.</h6>
+                    </div>
+                    <div className='row'>
+                        <div className='col'>
+                            <Form onSubmit={input => this.onSubmit(input)} onChange={this.handleChange}/>
+                            <Result result={this.state}/>
+                        </div>
+                        <div className='col'>
+                            <img src={keyImage} alt={'keypad'}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
