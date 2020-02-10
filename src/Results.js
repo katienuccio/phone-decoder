@@ -10,7 +10,12 @@ const Result = (props) => {
                 <div className='my-3'>You entered: {data.input}</div>
                 {!data.result ?
                     <div>No Results </div> :
-                    <div><h5>Results</h5>{data.result}</div>}
+                    <div>
+                        <h5>Results</h5>
+                        <div>
+                            {(data.result.length > 1) ? <div>{data.result.map(x => <div key={x}>{x}</div>)}</div> : <div>{data.result}</div>}
+                        </div>
+                    </div>}
             </div>
         );
     } else {

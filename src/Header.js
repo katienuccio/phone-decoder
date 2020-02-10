@@ -12,9 +12,9 @@ class Header extends React.Component {
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"/>
                 </button>
-                <a className="navbar-brand" href={"/encode"}>
+                <div className="navbar-brand">
                     <img src={icon} width='30' height='30' alt='' className={'invert'}/>
-                    &nbsp;Phone Number Decoder</a>
+                    &nbsp;Phone Number Decoder</div>
 
                 <div className="collapse navbar-collapse" id="navbarToggler">
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0">

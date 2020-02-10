@@ -2,11 +2,6 @@ import React from "react";
 import './Form.css';
 import IsValid from "./IsValid";
 
-function checkValidity(input) {
-    //&& !input.includes('1') && input.length === 10
-    return !isNaN(input);
-}
-
 class Form extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +15,7 @@ class Form extends React.Component {
     onChange = (e) => {
         const {name, value} = e.target;
         this.setState({
-            valid: checkValidity(value),
+            valid: this.props.checkValidity(value),
             hasValue: Object.keys(value).length > 0,
             [name]: value
         });
@@ -42,7 +37,7 @@ class Form extends React.Component {
             <form className='form-inline'>
                 <div className='form-group with-icon mr-2'>
                     <input type='text'
-                           placeholder='Phone Number'
+                           placeholder='Input'
                            className='form-control pr-4'
                            value={this.state.input}
                            name='input'
@@ -52,9 +47,9 @@ class Form extends React.Component {
                         <IsValid valid={this.state.valid} hasValue={this.state.hasValue}/>
                     </div>
                 </div>
-                {/*disabled={!this.state.valid}*/}
                 <button className='btn btn-primary'
                         type='submit'
+                        disabled={!this.state.valid}
                         onClick={this.onSubmit}>Submit
                 </button>
             </form>

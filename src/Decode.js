@@ -13,9 +13,19 @@ class Decode extends React.Component {
         };
     }
 
+    checkValidity = (input) => {
+        return !isNaN(input) && !input.includes('1');
+    };
+
     onSubmit = async (event) => {
         this.setState({input: event.input, result: '', loading: true});
-        fetch(`https://6e1pagj9va.execute-api.us-east-1.amazonaws.com/dev/decode?code=${event.input}`)
+        fetch(`https://6e1pagj9va.execute-api.us-east-1.amazonaws.com/dev/decode?input=${event.input}&verifyWord=true`)
+            .then(resp => {
+                if (!resp.ok) {
+                    throw Error(resp.statusText);
+                }
+                return resp;
+            })
             .then(resp => resp.json())
             .then(data => {
                 this.setState({
@@ -23,9 +33,9 @@ class Decode extends React.Component {
                     result: data.decoded
                 })
             })
-            .catch(e =>
-                this.setState({loading: false, result: 'Something went wrong :/ ' + e})
-            );
+            .catch(err => {
+                this.setState({loading: false, result: null})
+            });
     };
 
     render() {
@@ -38,15 +48,17 @@ class Decode extends React.Component {
                     <h6>Input a ten digit phone number to discover what, if any, words can be created with the key
                         below.</h6>
                 </div>
-                <div className='row'>
-                    <div className='col'>
-                        <Form onSubmit={this.onSubmit}/>
-                        <Result data={this.state}/>
-                    </div>
-                    <div className='col'>
+                <div className='row mx-1 mb-4'>
+                    <div>
                         <h6><b>Key</b></h6>
                         <img src={keyImage} alt={'keypad'}/>
                     </div>
+                </div>
+                <div className='row mx-1 mb-2'>
+                    <Form onSubmit={this.onSubmit} checkValidity={this.checkValidity}/>
+                </div>
+                <div className='row mx-1'>
+                    <Result data={this.state}/>
                 </div>
             </div>
         )
