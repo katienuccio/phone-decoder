@@ -41,6 +41,7 @@ class Decode extends React.Component {
     render() {
         return (
             <div className='m-5'>
+                <h2 className='row mx-1'>Decode</h2>
                 <div className='row mx-1'>
                     <h5>Directions</h5>
                 </div>

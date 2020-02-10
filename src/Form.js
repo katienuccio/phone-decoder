@@ -41,8 +41,7 @@ class Form extends React.Component {
                            className='form-control pr-4'
                            value={this.state.input}
                            name='input'
-                           onChange={this.onChange}
-                           pattern="[0-9]*"/>
+                           onChange={this.onChange}/>
                     <div className='validityIndicator'>
                         <IsValid valid={this.state.valid} hasValue={this.state.hasValue}/>
                     </div>
